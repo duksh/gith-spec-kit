@@ -78,11 +78,11 @@ Execution steps:
        WARNING: Clarification budget exhausted.
        Budget: {budget} rounds | Sessions used: {count}
        Reply "override clarification budget" to continue anyway.
-       Reply "proceed" to skip clarification and go to /speckit.plan.
+       Reply "proceed" to skip clarification and go to `__SPECKIT_COMMAND_PLAN__`.
        ```
      - Pause and wait for user input.
        - If user replies `override clarification budget`: continue to step 3.
-       - If user replies `proceed`: exit command and suggest running `/speckit.plan`.
+       - If user replies `proceed`: exit command and suggest running `__SPECKIT_COMMAND_PLAN__`.
        - Any other input: repeat the warning once, then exit.
    - If `session_count < clarification_budget`, continue to step 3.
 

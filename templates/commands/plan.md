@@ -68,7 +68,7 @@ You **MUST** consider the user input before proceeding (if not empty).
   empty or contain unfilled placeholders:
     - AI Model Tier
     - Estimated Token Budget
-  Fill these fields before re-running /speckit.plan.
+  Fill these fields before re-running `__SPECKIT_COMMAND_PLAN__`.
   ```
 
 - Do NOT infer or auto-fill these values; they require an explicit human decision.
