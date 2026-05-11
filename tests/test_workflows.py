@@ -1113,7 +1113,7 @@ class TestFanOutStep:
             "step": {"id": "impl", "command": "speckit.implement"},
             "max_parallel": 0,
         })
-        assert any("'max_parallel' must be a positive integer" in e for e in errors)
+        assert any("must be a positive integer" in e for e in errors)
 
 
 class TestFanInStep:

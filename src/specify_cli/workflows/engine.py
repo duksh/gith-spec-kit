@@ -666,6 +666,10 @@ class WorkflowEngine:
                     max_parallel = result.output.get("max_parallel", 3)
                     if not isinstance(max_parallel, int) or max_parallel < 1:
                         max_parallel = 3
+                    # Items are processed sequentially in batches of max_parallel.
+                    # This is intentional rate-limiting (cost/resource control),
+                    # not concurrent execution. True parallelism would require
+                    # thread-safe context and state management.
                     # Process items in batches of max_parallel
                     for batch_start in range(0, len(items), max_parallel):
                         batch = items[batch_start : batch_start + max_parallel]

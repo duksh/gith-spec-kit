@@ -55,11 +55,12 @@ class FanOutStep(StepBase):
             errors.append(
                 f"Fan-out step {config.get('id', '?')!r}: 'step' must be a mapping."
             )
-        max_parallel = config.get("max_parallel")
+        # Validate both canonical key and deprecated alias
+        max_parallel = config.get("max_parallel", config.get("max_concurrency"))
         if max_parallel is not None:
             if not isinstance(max_parallel, int) or max_parallel < 1:
                 errors.append(
                     f"Fan-out step {config.get('id', '?')!r}: 'max_parallel' "
-                    f"must be a positive integer."
+                    f"(or deprecated 'max_concurrency') must be a positive integer."
                 )
         return errors
