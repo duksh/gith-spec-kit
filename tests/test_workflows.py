@@ -1047,12 +1047,27 @@ class TestFanOutStep:
         config = {
             "id": "parallel",
             "items": "{{ steps.tasks.output.task_list }}",
-            "max_concurrency": 3,
+            "max_parallel": 3,
             "step": {"id": "impl", "command": "speckit.implement"},
         }
         result = step.execute(config, ctx)
         assert result.output["item_count"] == 2
-        assert result.output["max_concurrency"] == 3
+        assert result.output["max_parallel"] == 3
+
+    def test_execute_max_concurrency_alias(self):
+        from specify_cli.workflows.steps.fan_out import FanOutStep
+        from specify_cli.workflows.base import StepContext
+
+        step = FanOutStep()
+        ctx = StepContext()
+        config = {
+            "id": "parallel",
+            "items": "[]",
+            "max_concurrency": 5,  # deprecated alias
+            "step": {"id": "impl", "command": "speckit.implement"},
+        }
+        result = step.execute(config, ctx)
+        assert result.output["max_parallel"] == 5
 
     def test_execute_non_list_items_resolves_empty(self):
         from specify_cli.workflows.steps.fan_out import FanOutStep
@@ -1087,6 +1102,18 @@ class TestFanOutStep:
             "step": "not-a-dict",
         })
         assert any("'step' must be a mapping" in e for e in errors)
+
+    def test_validate_max_parallel_invalid(self):
+        from specify_cli.workflows.steps.fan_out import FanOutStep
+
+        step = FanOutStep()
+        errors = step.validate({
+            "id": "test",
+            "items": "{{ x }}",
+            "step": {"id": "impl", "command": "speckit.implement"},
+            "max_parallel": 0,
+        })
+        assert any("'max_parallel' must be a positive integer" in e for e in errors)
 
 
 class TestFanInStep:
