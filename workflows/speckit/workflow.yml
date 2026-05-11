@@ -74,3 +74,12 @@ steps:
     integration: "{{ inputs.integration }}"
     input:
       args: "{{ inputs.spec }}"
+
+  - id: spend-check
+    type: budget-gate
+    threshold_usd: "{{ inputs.budget_usd }}"
+    # Wire to your cost-tracker extension output once installed:
+    #   current_spend_usd: "{{ steps.cost-tracker.output.total_spend_usd }}"
+    current_spend_usd: 0
+    on_warning: notify
+    on_exceeded: pause
