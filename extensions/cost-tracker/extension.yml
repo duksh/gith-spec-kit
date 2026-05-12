@@ -5,10 +5,10 @@ extension:
   name: "LLM Cost Tracker"
   version: "1.0.0"
   description: "Records actual LLM spend back to the spec's Cost Allocation section and surfaces per-feature budget status"
-  author: "spec-kit-core"
-  repository: "https://github.com/github/spec-kit"
+  author: "duksh"
+  repository: "https://github.com/duksh/spec-kit-cost-tracker"
   license: "MIT"
-  homepage: "https://github.com/github/spec-kit"
+  homepage: "https://github.com/duksh/spec-kit-cost-tracker"
 
 requires:
   speckit_version: ">=0.7.2"
